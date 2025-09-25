@@ -25,7 +25,7 @@ function mostrarPresupuesto() {
 
 function CrearGasto(descripcion, valor) {
     // TODO
-    if (isNaN(valor) || valor < 0.0){
+    if (isNaN(valor) || valor <= 0.0){
         valor = 0;
     }
         this.descripcion = descripcion;
@@ -43,8 +43,27 @@ function CrearGasto(descripcion, valor) {
             if(nuevoValor >= 0.0)
                 this.valor = nuevoValor;
         };
+}
+
+function listarGastos() {
+    return gastos;
+}
+
+function anyadirGasto(gasto) {
+    gasto.id = idGasto++;
+    gastos.push(gasto);
+}
+
+function borrarGasto() {
     
-    return this;
+}
+
+function calcularTotalGastos() {
+    
+}
+
+function calcularBalance() {
+    
 }
 
 // NO MODIFICAR A PARTIR DE AQUÍ: exportación de funciones y objetos creados para poder ejecutar los tests.
@@ -53,5 +72,10 @@ function CrearGasto(descripcion, valor) {
 export   {
     mostrarPresupuesto,
     actualizarPresupuesto,
-    CrearGasto
+    CrearGasto,
+    listarGastos,
+    anyadirGasto,
+    borrarGasto,
+    calcularTotalGastos,
+    calcularBalance
 }
