@@ -22,10 +22,12 @@ function CrearGasto(descripcion, valor, fecha, ...etiquetas) {
     if (isNaN(valor) || valor <= 0.0){
         valor = 0;
     }
-    if (fecha )
+    if (validarFecha(fecha)){
+        fecha = new Date();
+    }
         this.descripcion = descripcion;
         this.valor = valor;
-
+        this.fecha = fecha.getTime();
 
 
         this.mostrarGasto = function() {
@@ -40,6 +42,11 @@ function CrearGasto(descripcion, valor, fecha, ...etiquetas) {
             if(nuevoValor >= 0.0)
                 this.valor = nuevoValor;
         };
+}
+
+function validarFecha(fecha) {
+    let tiempo = Date.parse(fecha);
+    return isNaN(tiempo);
 }
 
 function listarGastos() {
