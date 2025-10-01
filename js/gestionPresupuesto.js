@@ -28,7 +28,7 @@ function CrearGasto(descripcion, valor, fecha, ...etiquetas) {
         this.descripcion = descripcion;
         this.valor = valor;
         this.fecha = fecha.getTime();
-
+        this.etiquetas = etiquetas.anyadirEtiquetas();
 
         this.mostrarGasto = function() {
             return 'Gasto correspondiente a ' + this.descripcion + ' con valor ' + this.valor + ' €'
@@ -58,8 +58,13 @@ function anyadirGasto(gasto) {
     gastos.push(gasto);
 }
 
-function borrarGasto() {
-    
+function borrarGasto(idGasto) {
+    for(let i in gastos){
+        if (gasto.id == idGasto)
+        {
+
+        }
+    }
 }
 
 function calcularTotalGastos() {
