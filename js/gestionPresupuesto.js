@@ -59,16 +59,18 @@ function anyadirGasto(gasto) {
 }
 
 function borrarGasto(idGasto) {
-    for(let i in gastos){
+    for(let gasto of gastos){
         if (gasto.id == idGasto)
-        {
-
-        }
+            gastos.splice(gasto, 1);
     }
 }
 
 function calcularTotalGastos() {
-    
+    let total = 0;
+    for (let gasto of gastos)
+        total += gasto.valor;
+
+    return total;
 }
 
 function calcularBalance() {
