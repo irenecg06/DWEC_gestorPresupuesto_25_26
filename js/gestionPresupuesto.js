@@ -19,16 +19,19 @@ function mostrarPresupuesto() {
 }
 
 function CrearGasto(descripcion, valor, fecha, ...etiquetas) {
-    if (isNaN(valor) || valor <= 0.0){
+    if (isNaN(valor) || valor < 0.0){
         valor = 0;
     }
-    if (validarFecha(fecha)){
-        fecha = new Date();
+
+    fecha = Date.parse(fecha);
+
+    if (isNaN(fecha)){
+        fecha = Date.now();
     }
         this.descripcion = descripcion;
         this.valor = valor;
-        this.fecha = fecha.getTime();
-        this.etiquetas = etiquetas.anyadirEtiquetas();
+        this.fecha = fecha;
+        this.etiquetas = etiquetas;
 
         this.mostrarGasto = function() {
             return 'Gasto correspondiente a ' + this.descripcion + ' con valor ' + this.valor + ' €'
@@ -42,12 +45,35 @@ function CrearGasto(descripcion, valor, fecha, ...etiquetas) {
             if(nuevoValor >= 0.0)
                 this.valor = nuevoValor;
         };
+        this.mostrarGastoCompleto = function() {
+            let verEtiquetas = this.etiquetas.map(etiqueta => "- " + etiqueta).join("\n");
+            let fechaFormateada = new Date(this.fecha);
+            return "Gasto correspondiente a " + this.descripcion + " con valor " + this.valor + " €.\n" + 
+                   "Fecha: " + fechaFormateada.toLocaleString() + "\n" +
+                   "Etiquetas:\n" + verEtiquetas + "\n";
+        };
+        this.actualizarFecha = function(nuevaFecha) {
+            let tiempo = Date.parse(nuevaFecha);
+            if (!isNaN(tiempo))
+                this.fecha = tiempo;
+        };
+        this.anyadirEtiquetas = function(...nuevasEtiquetas) {
+            for (let etiqueta of nuevasEtiquetas){
+                if (!(this.etiquetas.includes(etiqueta))){
+                    this.etiquetas.push(etiqueta);
+                }
+            }
+        };
+        this.borrarEtiquetas = function(...etiquetasBorrar) {
+            for (let etiqueta of etiquetasBorrar){
+                let position = this.etiquetas.indexOf(etiqueta);
+                if (position >= 0)
+                    this.etiquetas.splice(position, 1);
+            }
+        };
 }
 
-function validarFecha(fecha) {
-    let tiempo = Date.parse(fecha);
-    return isNaN(tiempo);
-}
+
 
 function listarGastos() {
     return gastos;
@@ -59,10 +85,9 @@ function anyadirGasto(gasto) {
 }
 
 function borrarGasto(idGasto) {
-    for(let gasto of gastos){
-        if (gasto.id == idGasto)
-            gastos.splice(gasto, 1);
-    }
+    let position = gastos.findIndex(gasto => gasto.id === idGasto);
+    if (position >= 0)
+        gastos.splice(position, 1);
 }
 
 function calcularTotalGastos() {
@@ -74,7 +99,7 @@ function calcularTotalGastos() {
 }
 
 function calcularBalance() {
-    
+    return (presupuesto - calcularTotalGastos());
 }
 
 // NO MODIFICAR A PARTIR DE AQUÍ: exportación de funciones y objetos creados para poder ejecutar los tests.
