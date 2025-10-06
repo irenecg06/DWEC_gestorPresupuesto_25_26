@@ -71,8 +71,17 @@ function CrearGasto(descripcion, valor, fecha, ...etiquetas) {
                     this.etiquetas.splice(position, 1);
             }
         };
-        this.obtenerPeriodoAgrupacion = function() {
-
+        this.obtenerPeriodoAgrupacion = function(periodo) {
+            let fechaFormateada = new Date(this.fecha);
+            if (periodo == "anyo"){
+                return fechaFormateada.getFullYear();
+            }
+            if (periodo == "mes"){
+                return fechaFormateada.getFullYear() + "-" + (fechaFormateada.getMonth() + 1);
+            }
+            if (periodo == "dia"){
+                return fechaFormateada.getFullYear() + "-" + (fechaFormateada.getMonth() + 1) + "-" + fechaFormateada.getDate();
+            }
         };
 }
 
