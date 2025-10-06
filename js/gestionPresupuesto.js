@@ -73,14 +73,17 @@ function CrearGasto(descripcion, valor, fecha, ...etiquetas) {
         };
         this.obtenerPeriodoAgrupacion = function(periodo) {
             let fechaFormateada = new Date(this.fecha);
+            let anyo = fechaFormateada.getFullYear();
             if (periodo == "anyo"){
-                return fechaFormateada.getFullYear();
+                return anyo;
             }
-            if (periodo == "mes"){
-                return fechaFormateada.getFullYear() + "-" + (fechaFormateada.getMonth() + 1);
-            }
-            if (periodo == "dia"){
-                return fechaFormateada.getFullYear() + "-" + (fechaFormateada.getMonth() + 1) + "-" + fechaFormateada.getDate();
+            if (periodo == "mes" || periodo == "dia"){
+                let mes = (fechaFormateada.getMonth() + 1).toString().padStart(2, "0");
+                if (periodo == "mes"){
+                    return anyo + "-" + mes;
+                }
+                let dia = fechaFormateada.getDate().toString().padStart(2, "0");
+                return anyo + "-" + mes + "-" + dia;
             }
         };
 }
