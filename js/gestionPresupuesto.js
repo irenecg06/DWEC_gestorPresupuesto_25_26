@@ -117,8 +117,27 @@ function calcularBalance() {
     return (presupuesto - calcularTotalGastos());
 }
 
-function filtrarGastos() {
+function filtrarGastos(obj) {
+    let copiaGastos = [...gastos];
+    if (obj.hasOwnProperty("fechaDesde")){
+        
+    }
+    if (obj.hasOwnProperty("fechaDesde")){
+        
+    }
+    if (obj.hasOwnProperty("fechaDesde")){
+        
+    }
+    if (obj.hasOwnProperty("fechaDesde")){
+        
+    }
+    if (obj.hasOwnProperty("fechaDesde")){
+        
+    }
+    if (obj.hasOwnProperty("fechaDesde")){
 
+    }
+    return copiaGastos;
 }
 
 function agruparGastos() {
