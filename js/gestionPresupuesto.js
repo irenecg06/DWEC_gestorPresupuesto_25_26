@@ -119,10 +119,10 @@ function calcularBalance() {
 
 function filtrarGastos(obj) {
     let copiaGastos = [...gastos];
-    if (obj.hasOwnProperty("fechaDesde")){
+    if (obj.hasOwnProperty("fechaDesde") && !isNaN(Date.parse(obj.fechaDesde))){
         copiaGastos = copiaGastos.filter(gasto => gasto.fecha >= new Date(obj.fechaDesde));
     }
-    if (obj.hasOwnProperty("fechaHasta")){
+    if (obj.hasOwnProperty("fechaHasta") && !isNaN(Date.parse(obj.fechaHasta))){
         copiaGastos = copiaGastos.filter(gasto => gasto.fecha <= new Date(obj.fechaHasta));
     }
     if (obj.hasOwnProperty("valorMinimo")){
@@ -135,27 +135,25 @@ function filtrarGastos(obj) {
         copiaGastos = copiaGastos.filter(gasto => gasto.descripcion.toLowerCase().includes(obj.descripcionContiene.toLowerCase()));
     }
     if (obj.hasOwnProperty("etiquetasTiene")){
-        copiaGastos = copiaGastos.filter(gasto => obj.etiquetasTiene.some(etiqueta => gasto.etiquetas.includes(etiqueta))); 
+        copiaGastos = copiaGastos.filter(gasto => obj.etiquetasTiene.some(etiquetaFiltro => gasto.etiquetas.some(etiquetaGasto => etiquetaGasto.toLowerCase() === etiquetaFiltro.toLowerCase()))); 
     }
     return copiaGastos;
 }
 
-function agruparGastos(periodo, etiquetas, fechaDesde, fechaHasta) {
-    if (periodo != "anyo" || periodo != "mes" || periodo != "dia" || periodo == null){
-        periodo = "mes";
+function agruparGastos(periodo = "mes", etiquetas = [], fechaDesde, fechaHasta = Date.now()) {
+    let filtro = {
+        fechaDesde: fechaDesde,
+        fechaHasta: fechaHasta
     }
 
-    fechaHasta = Date.parse(fechaHasta);
-    if (isNaN(fechaHasta)){
-        fechaHasta = Date.now();
-    }
+    if (etiquetas.length > 0)
+        filtro.etiquetasTiene = etiquetas;
 
-    let gastosFiltrados = filtrarGastos(periodo, etiquetas, fechaDesde, fechaHasta);
+    let gastosFiltrados = filtrarGastos(filtro);
 
-    return gastosFiltrados.reduce(function(acumulador, gasto){
+    let gastosReduce = gastosFiltrados.reduce(function(acumulador, gasto){
         let fecha = gasto.obtenerPeriodoAgrupacion(periodo);
-        
-        
+
         if(!acumulador[fecha]){
             acumulador[fecha] = 0;
         }
@@ -164,6 +162,7 @@ function agruparGastos(periodo, etiquetas, fechaDesde, fechaHasta) {
 
         return acumulador;
     }, {});
+    return gastosReduce;
 }
 
 // NO MODIFICAR A PARTIR DE AQUÍ: exportación de funciones y objetos creados para poder ejecutar los tests.
