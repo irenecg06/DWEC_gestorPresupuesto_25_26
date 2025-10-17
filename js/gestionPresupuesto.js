@@ -142,7 +142,7 @@ function filtrarGastos(obj) {
 
 function agruparGastos(periodo, etiquetas, fechaDesde, fechaHasta) {
     if (periodo != "anyo" || periodo != "mes" || periodo != "dia" || periodo == null){
-        periodo = "mes"
+        periodo = "mes";
     }
 
     fechaHasta = Date.parse(fechaHasta);
@@ -152,8 +152,18 @@ function agruparGastos(periodo, etiquetas, fechaDesde, fechaHasta) {
 
     let gastosFiltrados = filtrarGastos(periodo, etiquetas, fechaDesde, fechaHasta);
 
-    let gastosReduce = gastosFiltrados;
-    return gastosReduce;
+    return gastosFiltrados.reduce(function(acumulador, gasto){
+        let fecha = gasto.obtenerPeriodoAgrupacion(periodo);
+        
+        
+        if(!acumulador[fecha]){
+            acumulador[fecha] = 0;
+        }
+
+        acumulador[fecha] += gasto.valor;
+
+        return acumulador;
+    }, {});
 }
 
 // NO MODIFICAR A PARTIR DE AQUÍ: exportación de funciones y objetos creados para poder ejecutar los tests.
