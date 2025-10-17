@@ -120,28 +120,40 @@ function calcularBalance() {
 function filtrarGastos(obj) {
     let copiaGastos = [...gastos];
     if (obj.hasOwnProperty("fechaDesde")){
-        
+        copiaGastos = copiaGastos.filter(gasto => gasto.fecha >= new Date(obj.fechaDesde));
     }
-    if (obj.hasOwnProperty("fechaDesde")){
-        
+    if (obj.hasOwnProperty("fechaHasta")){
+        copiaGastos = copiaGastos.filter(gasto => gasto.fecha <= new Date(obj.fechaHasta));
     }
-    if (obj.hasOwnProperty("fechaDesde")){
-        
+    if (obj.hasOwnProperty("valorMinimo")){
+        copiaGastos = copiaGastos.filter(gasto => gasto.valor >= obj.valorMinimo);
     }
-    if (obj.hasOwnProperty("fechaDesde")){
-        
+    if (obj.hasOwnProperty("valorMaximo")){
+        copiaGastos = copiaGastos.filter(gasto => gasto.valor <= obj.valorMaximo);
     }
-    if (obj.hasOwnProperty("fechaDesde")){
-        
+    if (obj.hasOwnProperty("descripcionContiene")){
+        copiaGastos = copiaGastos.filter(gasto => gasto.descripcion.toLowerCase().includes(obj.descripcionContiene.toLowerCase()));
     }
-    if (obj.hasOwnProperty("fechaDesde")){
-
+    if (obj.hasOwnProperty("etiquetasTiene")){
+        copiaGastos = copiaGastos.filter(gasto => obj.etiquetasTiene.some(etiqueta => gasto.etiquetas.includes(etiqueta))); 
     }
     return copiaGastos;
 }
 
-function agruparGastos() {
-    
+function agruparGastos(periodo, etiquetas, fechaDesde, fechaHasta) {
+    if (periodo != "anyo" || periodo != "mes" || periodo != "dia" || periodo == null){
+        periodo = "mes"
+    }
+
+    fechaHasta = Date.parse(fechaHasta);
+    if (isNaN(fechaHasta)){
+        fechaHasta = Date.now();
+    }
+
+    let gastosFiltrados = filtrarGastos(periodo, etiquetas, fechaDesde, fechaHasta);
+
+    let gastosReduce = gastosFiltrados;
+    return gastosReduce;
 }
 
 // NO MODIFICAR A PARTIR DE AQUÍ: exportación de funciones y objetos creados para poder ejecutar los tests.
