@@ -1,4 +1,6 @@
 import * as GP from './gestionPresupuesto.js';
 import * as GPW from './gestionPresupuestoWeb.js';
 
-let presupuesto = 1500;
+GP.actualizarPresupuesto(1500);
+document.getElementById("presupuesto");
+
