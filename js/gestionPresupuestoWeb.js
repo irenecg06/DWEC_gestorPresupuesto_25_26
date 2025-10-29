@@ -1,4 +1,4 @@
-function mostrarDatoEnId(valor, idElemento){
+function mostrarDatoEnId(idElemento, valor){
     let elemento = document.getElementById(idElemento);
     
     if (elemento)
@@ -6,7 +6,14 @@ function mostrarDatoEnId(valor, idElemento){
 };
 
 function mostrarGastoWeb(idElemento, gasto){
+    let elemento = document.getElementById(idElemento)
+
+    let divGasto = document.createElement("div");
+    divGasto.classList.add("gasto");
+
     
+    
+    elemento.appendChild(divGasto);
 };
 
 function mostrarGastosAgrupadosWeb(idElemento, agrup, periodo){
