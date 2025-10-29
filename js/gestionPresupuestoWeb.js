@@ -11,7 +11,26 @@ function mostrarGastoWeb(idElemento, gasto){
     let divGasto = document.createElement("div");
     divGasto.classList.add("gasto");
 
-    
+    let gastoDescripcion = document.createElement("div");
+    gastoDescripcion.classList.add("gasto-descripcion");
+    gastoDescripcion.textContent = gasto.descripcion;
+    divGasto.appendChild(gastoDescripcion);
+
+    let gastoFecha = document.createElement("div");
+    gastoFecha.classList.add("gasto-fecha");
+    gastoFecha.textContent = gasto.fecha;
+    divGasto.appendChild(gastoFecha);
+
+    let gastoValor = document.createElement("div");
+    gastoValor.classList.add("gasto-valor");
+    gastoValor.textContent = gasto.valor;
+    divGasto.appendChild(gastoValor);
+
+    let gastoEtiquetas = document.createElement("div");
+    gastoEtiquetas.classList.add("gasto-etiquetas");
+    gasto.etiquetas
+
+
     
     elemento.appendChild(divGasto);
 };
