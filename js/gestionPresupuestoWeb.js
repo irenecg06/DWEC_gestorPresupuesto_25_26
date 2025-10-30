@@ -28,10 +28,14 @@ function mostrarGastoWeb(idElemento, gasto){
 
     let gastoEtiquetas = document.createElement("div");
     gastoEtiquetas.classList.add("gasto-etiquetas");
-    gasto.etiquetas
-
-
-    
+    gasto.etiquetas.forEach(etiqueta => {
+        let gastoEtiqueta = document.createElement("span");
+        gastoEtiqueta.classList.add("gasto-etiquetas-etiqueta");
+        gastoEtiqueta.textContent = etiqueta;
+        gastoEtiquetas.appendChild(gastoEtiqueta);        
+    });
+    divGasto.appendChild(gastoEtiquetas);
+        
     elemento.appendChild(divGasto);
 };
 
