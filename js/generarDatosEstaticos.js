@@ -25,3 +25,7 @@ GPW.mostrarDatoEnId("gastos-totales", gastosTotales);
 let balanceTotal = GP.calcularBalance();
 GPW.mostrarDatoEnId("balance-total", balanceTotal);
 
+
+
+let listarGastos = GP.listarGastos();
+listarGastos.forEach(gasto => {GPW.mostrarGastoWeb("listado-gastos-completo", gasto)});
