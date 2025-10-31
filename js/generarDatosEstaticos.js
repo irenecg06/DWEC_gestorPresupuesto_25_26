@@ -40,4 +40,12 @@ let gastosFiltrados3 = GP.filtrarGastos({valorMinimo: 200, etiquetasTiene: ["seg
 gastosFiltrados3.forEach(gasto => {GPW.mostrarGastoWeb("listado-gastos-filtrado-3", gasto)});
 
 let gastosFiltrados4 = GP.filtrarGastos({valorMaximo: 50, etiquetasTiene: ["comida", "transporte"]});
-gastosFiltrados4.forEach(gasto => {GPW.mostrarGastoWeb("listado-gastos-filtrado-4", gasto)})
+gastosFiltrados4.forEach(gasto => {GPW.mostrarGastoWeb("listado-gastos-filtrado-4", gasto)});
+
+
+let gastosAgrupadosDia = GP.agruparGastos("dia");
+GPW.mostrarGastosAgrupadosWeb("agrupacion-dia", gastosAgrupadosDia, "día");
+
+let gastosAgrupadosMes = GP.agruparGastos("mes");
+
+let gastosAgrupadosAnyo = GP.agruparGastos("anyo");
