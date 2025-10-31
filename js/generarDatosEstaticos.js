@@ -32,3 +32,6 @@ listarGastos.forEach(gasto => {GPW.mostrarGastoWeb("listado-gastos-completo", ga
 
 let gastosFiltrados1 = GP.filtrarGastos({fechaDesde: "2021-09-01", fechaHasta: "2021-09-30"});
 gastosFiltrados1.forEach(gasto => {GPW.mostrarGastoWeb("listado-gastos-filtrado-1", gasto)});
+
+let gastosFiltrados2 = GP.filtrarGastos({valorMinimo: 50});
+gastosFiltrados2.forEach(gasto => {GPW.mostrarGastoWeb("listado-gastos-filtrado-2", gasto)});
