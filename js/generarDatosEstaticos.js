@@ -47,5 +47,6 @@ let gastosAgrupadosDia = GP.agruparGastos("dia");
 GPW.mostrarGastosAgrupadosWeb("agrupacion-dia", gastosAgrupadosDia, "día");
 
 let gastosAgrupadosMes = GP.agruparGastos("mes");
+GPW.mostrarGastosAgrupadosWeb("agrupacion-mes", gastosAgrupadosMes, "mes");
 
 let gastosAgrupadosAnyo = GP.agruparGastos("anyo");
