@@ -35,3 +35,6 @@ gastosFiltrados1.forEach(gasto => {GPW.mostrarGastoWeb("listado-gastos-filtrado-
 
 let gastosFiltrados2 = GP.filtrarGastos({valorMinimo: 50});
 gastosFiltrados2.forEach(gasto => {GPW.mostrarGastoWeb("listado-gastos-filtrado-2", gasto)});
+
+let gastosFiltrados3 = GP.filtrarGastos({valorMinimo: 200, etiquetasTiene: ["seguros"]});
+gastosFiltrados3.forEach(gasto => {GPW.mostrarGastoWeb("listado-gastos-filtrado-3", gasto)});
