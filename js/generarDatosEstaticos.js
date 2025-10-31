@@ -50,3 +50,4 @@ let gastosAgrupadosMes = GP.agruparGastos("mes");
 GPW.mostrarGastosAgrupadosWeb("agrupacion-mes", gastosAgrupadosMes, "mes");
 
 let gastosAgrupadosAnyo = GP.agruparGastos("anyo");
+GPW.mostrarGastosAgrupadosWeb("agrupacion-anyo", gastosAgrupadosAnyo, "año");
