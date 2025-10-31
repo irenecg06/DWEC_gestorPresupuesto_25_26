@@ -3,7 +3,6 @@ import * as GPW from './gestionPresupuestoWeb.js';
 
 GP.actualizarPresupuesto(1500);
 let presupuesto = GP.mostrarPresupuesto();
-
 GPW.mostrarDatoEnId("presupuesto", presupuesto);
 
 let gasto1 = new GP.CrearGasto("Compra carne", 23.44, "2021-10-06", "casa", "comida");
@@ -21,5 +20,8 @@ GP.anyadirGasto(gasto5);
 GP.anyadirGasto(gasto6);
 
 let gastosTotales = GP.calcularTotalGastos();
-
 GPW.mostrarDatoEnId("gastos-totales", gastosTotales);
+
+let balanceTotal = GP.calcularBalance();
+GPW.mostrarDatoEnId("balance-total", balanceTotal);
+
