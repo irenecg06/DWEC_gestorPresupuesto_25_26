@@ -84,6 +84,12 @@ function repintar(){
     listarGastos.forEach(gasto => {GPW.mostrarGastoWeb("listado-gastos-completo", gasto)});
 };
 
+function actualizarPresupuestoWeb(){
+    let presupuesto = Number(prompt("Introduzca un presupuesto: "));
+    GP.actualizarPresupuesto(presupuesto);
+    repintar();
+}
+
 
 
 
@@ -91,5 +97,7 @@ function repintar(){
 export   {
     mostrarDatoEnId,
     mostrarGastoWeb,
-    mostrarGastosAgrupadosWeb
+    mostrarGastosAgrupadosWeb,
+    repintar,
+    actualizarPresupuestoWeb
 }
