@@ -20,7 +20,7 @@ function mostrarGastoWeb(idElemento, gasto){
 
     let gastoFecha = document.createElement("div");
     gastoFecha.classList.add("gasto-fecha");
-    gastoFecha.textContent = gasto.fecha;
+    gastoFecha.textContent = gasto.obtenerPeriodoAgrupacion("dia");
     divGasto.appendChild(gastoFecha);
 
     let gastoValor = document.createElement("div");
@@ -102,11 +102,27 @@ function nuevoGastoWeb(){
     let gasto = new GP.CrearGasto(descripcion, valor, fecha, etiquetas);
     GP.anyadirGasto(gasto);
     repintar();
-}
+};
 
 let btnAnyadirGasto = document.getElementById("anyadirgasto");
 btnAnyadirGasto.addEventListener("click", nuevoGastoWeb);
  
+function EditarHandle(){
+    this.handleEvent = function(event){
+        let descripcion = prompt("Introduzca una descripción para el gasto: ", this.gasto.descripcion);
+        let valor = Number(prompt("Introduzca un valor para el gasto: ", this.gasto.valor));
+        let fecha = prompt("Introduzca una fecha en formato yyyy-mm-dd : ", this.gasto.obtenerPeriodoAgrupacion("dia"));
+        let etiquetas = prompt("Introduzca etiquetas para el gasto en formato etiqueta1,etiqueta2,etiqueta3 : ", this.gasto.etiquetas);
+        etiquetas = etiquetas.split(",").map(etiqueta => etiqueta.trim());
+        this.gasto.actualizarDescripcion(descripcion);
+        this.gasto.actualizarValor(valor);
+        this.gasto.actualizarFecha(fecha);
+        this.gasto.anyadirEtiquetas(etiquetas);
+        repintar();
+    };
+};
+
+
 
 
 
