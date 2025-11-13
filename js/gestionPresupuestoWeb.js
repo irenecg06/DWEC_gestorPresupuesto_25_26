@@ -98,10 +98,15 @@ function nuevoGastoWeb(){
     let valor = Number(prompt("Introduzca un valor para el nuevo gasto: "));
     let fecha = prompt("Introduzca una fecha en formato yyyy-mm-dd : ");
     let etiquetas = prompt("Introduzca etiquetas para el nuevo gasto en formato etiqueta1,etiqueta2,etiqueta3 : ");
-    etiquetas = etiquetas.split(",").map(etiqueta => etiqueta.trim())
+    etiquetas = etiquetas.split(",").map(etiqueta => etiqueta.trim());
+    let gasto = new GP.CrearGasto(descripcion, valor, fecha, etiquetas);
+    GP.anyadirGasto(gasto);
+    repintar();
 }
 
-
+let btnAnyadirGasto = document.getElementById("anyadirgasto");
+btnAnyadirGasto.addEventListener("click", nuevoGastoWeb);
+ 
 
 
 
