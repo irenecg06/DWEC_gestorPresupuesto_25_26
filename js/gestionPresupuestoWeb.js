@@ -93,6 +93,16 @@ function actualizarPresupuestoWeb(){
 let btnActualizarPresupuesto = document.getElementById("actualizarpresupuesto");
 btnActualizarPresupuesto.addEventListener("click", actualizarPresupuestoWeb)
 
+function nuevoGastoWeb(){
+    let descripcion = prompt("Introduzca una descripción para el nuevo gasto: ");
+    let valor = Number(prompt("Introduzca un valor para el nuevo gasto: "));
+    let fecha = prompt("Introduzca una fecha en formato yyyy-mm-dd : ");
+    let etiquetas = prompt("Introduzca etiquetas para el nuevo gasto en formato etiqueta1,etiqueta2,etiqueta3 : ");
+    etiquetas = etiquetas.split(",").map(etiqueta => etiqueta.trim())
+}
+
+
+
 
 
 export   {
