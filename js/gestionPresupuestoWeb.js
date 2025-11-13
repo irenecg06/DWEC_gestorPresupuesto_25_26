@@ -81,7 +81,7 @@ function repintar(){
     let listadoCompleto = document.getElementById("listado-gastos-completo");
     listadoCompleto.innerHTML = "";
     let listarGastos = GP.listarGastos();
-    listarGastos.forEach(gasto => {GPW.mostrarGastoWeb("listado-gastos-completo", gasto)});
+    listarGastos.forEach(gasto => {mostrarGastoWeb("listado-gastos-completo", gasto)});
 };
 
 function actualizarPresupuestoWeb(){
