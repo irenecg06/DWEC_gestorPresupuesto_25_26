@@ -90,7 +90,8 @@ function actualizarPresupuestoWeb(){
     repintar();
 }
 
-
+let btnActualizarPresupuesto = document.getElementById("actualizarpresupuesto");
+btnActualizarPresupuesto.addEventListener("click", actualizarPresupuestoWeb)
 
 
 
