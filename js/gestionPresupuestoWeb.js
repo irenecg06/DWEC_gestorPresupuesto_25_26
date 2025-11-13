@@ -122,7 +122,12 @@ function EditarHandle(){
     };
 };
 
-
+function BorrarHandle(){
+    this.handleEvent = function(event){
+        GP.borrarGasto(this.gasto.id);
+        repintar();
+    };
+};
 
 
 
