@@ -38,6 +38,10 @@ function mostrarGastoWeb(idElemento, gasto){
     });
     divGasto.appendChild(gastoEtiquetas);
 
+    let btnEditar = document.createElement("button");
+    btnEditar.classList.add("gasto-editar");
+    let manejador = 
+
     elemento.appendChild(divGasto);
 };
 
