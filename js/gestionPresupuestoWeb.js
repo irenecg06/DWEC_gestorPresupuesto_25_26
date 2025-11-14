@@ -30,9 +30,13 @@ function mostrarGastoWeb(idElemento, gasto){
 
     let gastoEtiquetas = document.createElement("div");
     gastoEtiquetas.classList.add("gasto-etiquetas");
+    let manejadorEtiquetas = new BorrarEtiquetasHandle();
+    manejadorEtiquetas.gasto = gasto;
     gasto.etiquetas.forEach(etiqueta => {
         let gastoEtiqueta = document.createElement("span");
         gastoEtiqueta.classList.add("gasto-etiquetas-etiqueta");
+        manejadorEtiquetas.etiqueta = etiqueta;
+        gastoEtiqueta.addEventListener("click", manejadorEtiquetas);
         gastoEtiqueta.textContent = etiqueta;
         gastoEtiquetas.appendChild(gastoEtiqueta);        
     });
@@ -42,13 +46,15 @@ function mostrarGastoWeb(idElemento, gasto){
     btnEditar.classList.add("gasto-editar");
     let manejadorEditar = new EditarHandle();
     manejadorEditar.gasto = gasto;
+    manejadorEditar.textContent = "Editar";
     btnEditar.addEventListener("click", manejadorEditar);
     divGasto.appendChild(btnEditar);
 
     let btnBorrar = document.createElement("button");
     btnBorrar.classList.add("gasto-borrar");
     let manejadorBorrar = new BorrarHandle();
-    btnBorrar.gasto = gasto;
+    manejadorBorrar.gasto = gasto;
+    btnBorrar.textContent = "Borrar";
     btnBorrar.addEventListener("click", manejadorBorrar);
     divGasto.appendChild(btnBorrar);
 
