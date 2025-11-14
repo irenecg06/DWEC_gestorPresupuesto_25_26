@@ -40,7 +40,17 @@ function mostrarGastoWeb(idElemento, gasto){
 
     let btnEditar = document.createElement("button");
     btnEditar.classList.add("gasto-editar");
-    let manejador = 
+    let manejadorEditar = new EditarHandle();
+    manejadorEditar.gasto = gasto;
+    btnEditar.addEventListener("click", manejadorEditar);
+    divGasto.appendChild(btnEditar);
+
+    let btnBorrar = document.createElement("button");
+    btnBorrar.classList.add("gasto-borrar");
+    let manejadorBorrar = new BorrarHandle();
+    btnBorrar.gasto = gasto;
+    btnBorrar.addEventListener("click", manejadorBorrar);
+    divGasto.appendChild(btnBorrar);
 
     elemento.appendChild(divGasto);
 };
