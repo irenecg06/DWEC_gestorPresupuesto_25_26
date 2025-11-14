@@ -46,7 +46,7 @@ function mostrarGastoWeb(idElemento, gasto){
     btnEditar.classList.add("gasto-editar");
     let manejadorEditar = new EditarHandle();
     manejadorEditar.gasto = gasto;
-    manejadorEditar.textContent = "Editar";
+    btnEditar.textContent = "Editar";
     btnEditar.addEventListener("click", manejadorEditar);
     divGasto.appendChild(btnEditar);
 
