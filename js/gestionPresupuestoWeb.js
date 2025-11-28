@@ -156,6 +156,44 @@ function BorrarEtiquetasHandle(){
     };
 };
 
+function nuevoGastoWebFormulario(){
+    let plantillaFormulario = document.getElementById("formulario-template").content.cloneNode(true);
+    
+    let form = plantillaFormulario.querySelector("form");
+
+    form.addEventListener("submit", function(event){
+        event.preventDefault();
+    
+        const descripcion = form.elements["descripcion"].value.trim();
+        const valor = form.elements["valor"].value.trim();
+        const fecha = form.elements["fecha"].value.trim();
+        const etiquetas = form.elements["etiquetas"].value.trim();
+        
+        const gasto = new GP.CrearGasto(descripcion, valor, fecha, etiquetas);
+        GP.anyadirGasto(gasto);
+        repintar();        
+        
+        document.getElementById("anyadirgasto-formulario").disable = true;
+    });
+
+    let btnCancelar = form.querySelector("button.cancelar");
+
+    let cancelar = new CancelarFormularioHandle();
+    cancelar.formulario = form;
+
+    btnCancelar.addEventListener("click", cancelar);
+
+    document.getElementById("anyadirgasto-formulario").disabled = false;
+
+    document.getElementById("controlesprincipales").append(plantillaFormulario);
+};
+
+function CancelarFormularioHandle(){
+    this.handleEvent = function(event){
+        this.formulario.remove();
+    }
+}
+
 
 
 export   {
@@ -163,5 +201,6 @@ export   {
     mostrarGastoWeb,
     mostrarGastosAgrupadosWeb,
     repintar,
-    actualizarPresupuestoWeb
+    actualizarPresupuestoWeb, 
+    nuevoGastoWebFormulario
 }
