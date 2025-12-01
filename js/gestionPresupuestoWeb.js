@@ -173,7 +173,9 @@ function nuevoGastoWebFormulario(){
         GP.anyadirGasto(gasto);
         repintar();        
         
-        document.getElementById("anyadirgasto-formulario").disable = true;
+        document.getElementById("anyadirgasto-formulario").disabled = false;
+
+        formulario.remove();
     });
 
     let btnCancelar = form.querySelector("button.cancelar");
@@ -183,7 +185,7 @@ function nuevoGastoWebFormulario(){
 
     btnCancelar.addEventListener("click", cancelar);
 
-    document.getElementById("anyadirgasto-formulario").disabled = false;
+    document.getElementById("anyadirgasto-formulario").disabled = true;
 
     document.getElementById("controlesprincipales").append(plantillaFormulario);
 };
@@ -191,6 +193,7 @@ function nuevoGastoWebFormulario(){
 function CancelarFormularioHandle(){
     this.handleEvent = function(event){
         this.formulario.remove();
+        this.boton.disabled = false;
     }
 }
 
