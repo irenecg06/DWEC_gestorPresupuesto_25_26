@@ -165,7 +165,7 @@ function nuevoGastoWebFormulario(){
         event.preventDefault();
     
         const descripcion = form.elements["descripcion"].value.trim();
-        const valor = form.elements["valor"].value.trim();
+        const valor = Number(form.elements["valor"].value.trim());
         const fecha = form.elements["fecha"].value.trim();
         const etiquetas = form.elements["etiquetas"].value.trim();
         
@@ -173,9 +173,8 @@ function nuevoGastoWebFormulario(){
         GP.anyadirGasto(gasto);
         repintar();        
         
-        document.getElementById("anyadirgasto-formulario").disabled = false;
+        document.getElementById("anyadirgasto-formulario").disabled = true;
 
-        formulario.remove();
     });
 
     let btnCancelar = form.querySelector("button.cancelar");
@@ -185,18 +184,18 @@ function nuevoGastoWebFormulario(){
 
     btnCancelar.addEventListener("click", cancelar);
 
-    document.getElementById("anyadirgasto-formulario").disabled = true;
-
     document.getElementById("controlesprincipales").append(plantillaFormulario);
 };
 
 function CancelarFormularioHandle(){
     this.handleEvent = function(event){
         this.formulario.remove();
-        this.boton.disabled = false;
+        this.boton.disabled = true;
     }
 }
 
+let btnAnyadirGastoFormulario = document.getElementById("anyadirgasto-formulario");
+btnAnyadirGastoFormulario.addEventListener("click", nuevoGastoWebFormulario);
 
 
 export   {
