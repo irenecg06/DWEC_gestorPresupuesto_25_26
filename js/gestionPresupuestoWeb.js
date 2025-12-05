@@ -192,7 +192,7 @@ function nuevoGastoWebFormulario(){
 function CancelarFormularioHandle(){
     this.handleEvent = function(event){
         this.formulario.remove();
-        this.boton.disabled = true;
+        document.getElementById("anyadirgasto-formulario").disabled = false;
     }
 }
 
