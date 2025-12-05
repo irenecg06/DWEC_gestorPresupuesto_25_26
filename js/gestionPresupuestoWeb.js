@@ -58,6 +58,14 @@ function mostrarGastoWeb(idElemento, gasto){
     btnBorrar.addEventListener("click", manejadorBorrar);
     divGasto.appendChild(btnBorrar);
 
+    let btnEditarFormulario = document.createElement("button");
+    btnEditarFormulario.classList.add("gasto-editar-formulario");
+    let manejadorEditarFormulario = new BorrarHandle();
+    manejadorEditarFormulario.gasto = gasto;
+    btnEditarFormulario.textContent = "Editar (Formulario)";
+    btnEditarFormulario.addEventListener("click", manejadorBorrar);
+    divGasto.appendChild(btnEditarFormulario);
+
     elemento.appendChild(divGasto);
 };
 
@@ -199,6 +207,9 @@ function CancelarFormularioHandle(){
 let btnAnyadirGastoFormulario = document.getElementById("anyadirgasto-formulario");
 btnAnyadirGastoFormulario.addEventListener("click", nuevoGastoWebFormulario);
 
+function EditarHandleFormulario(){
+    
+};
 
 export   {
     mostrarDatoEnId,
