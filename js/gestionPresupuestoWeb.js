@@ -215,11 +215,28 @@ function EditarHandleFormulario(){
         form.elements["descripcion"].value = this.gasto.descripcion;
         form.elements["valor"].value = this.gasto.valor;
         form.elements["fecha"].value = this.gasto.fecha;
-        form.elements["etiquetas"].value = this.gasto.etiquetas;
-        
-
+        form.elements["etiquetas"].value = this.gasto.etiquetas;   
+        let enviarFormulario = new SubmitFormulario()
     }
 };
+
+function SubmitFormulario(){
+    this.handleEvent = function(event){
+        event.preventDefault();
+        let form = event.currentTarget;
+        let descripcion = form.elements["descripcion"].value.trim();
+        let valor = Number(form.elements["valor"].value.trim());
+        let fecha = form.elements["fecha"].value.trim();
+        let etiquetas = form.elements["etiquetas"].value.trim();
+        etiquetas = etiquetas.split(",").map(etiqueta => etiqueta.trim());
+        this.gasto.actualizarDescripcion(descripcion);
+        this.gasto.actualizarValor(valor);
+        this.gasto.actualizarFecha(fecha);
+        this.gasto.anyadirEtiquetas(etiquetas);
+        repintar();
+        
+    }
+}
 
 export   {
     mostrarDatoEnId,
