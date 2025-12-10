@@ -60,10 +60,10 @@ function mostrarGastoWeb(idElemento, gasto){
 
     let btnEditarFormulario = document.createElement("button");
     btnEditarFormulario.classList.add("gasto-editar-formulario");
-    let manejadorEditarFormulario = new BorrarHandle();
+    let manejadorEditarFormulario = new EditarHandleFormulario();
     manejadorEditarFormulario.gasto = gasto;
     btnEditarFormulario.textContent = "Editar (Formulario)";
-    btnEditarFormulario.addEventListener("click", manejadorBorrar);
+    btnEditarFormulario.addEventListener("click", manejadorEditarFormulario);
     divGasto.appendChild(btnEditarFormulario);
 
     elemento.appendChild(divGasto);
@@ -208,7 +208,9 @@ let btnAnyadirGastoFormulario = document.getElementById("anyadirgasto-formulario
 btnAnyadirGastoFormulario.addEventListener("click", nuevoGastoWebFormulario);
 
 function EditarHandleFormulario(){
-    
+    this.handleEvent = function(event){
+        event.target.disabled = true;
+    }
 };
 
 export   {
