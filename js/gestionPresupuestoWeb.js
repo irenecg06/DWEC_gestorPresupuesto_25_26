@@ -189,6 +189,7 @@ function nuevoGastoWebFormulario(){
 
     let cancelar = new CancelarFormularioHandle();
     cancelar.formulario = form;
+    cancelar.boton = document.getElementById("anyadirgasto-formulario");
 
     btnCancelar.addEventListener("click", cancelar);
 
@@ -200,7 +201,7 @@ function nuevoGastoWebFormulario(){
 function CancelarFormularioHandle(){
     this.handleEvent = function(event){
         this.formulario.remove();
-        document.getElementById("anyadirgasto-formulario").disabled = false;
+        this.boton.disabled = false;
     }
 }
 
@@ -216,7 +217,15 @@ function EditarHandleFormulario(){
         form.elements["valor"].value = this.gasto.valor;
         form.elements["fecha"].value = this.gasto.fecha;
         form.elements["etiquetas"].value = this.gasto.etiquetas;   
-        let enviarFormulario = new SubmitFormulario()
+        let enviarFormulario = new SubmitFormulario();
+        enviarFormulario.gasto = this.gasto;
+        form.addEventListener("submit", enviarFormulario);
+        let botonCancelar = form.querySelector("button.cancelar");
+        let manejadorCancelar = new CancelarFormularioHandle();
+        manejadorCancelar.formulario = form;
+        manejadorCancelar.boton = event.currentTarget;
+        botonCancelar.addEventListener("click", manejadorCancelar);
+        event.target.insertAdjacentElement("afterend", form);
     }
 };
 
@@ -232,9 +241,8 @@ function SubmitFormulario(){
         this.gasto.actualizarDescripcion(descripcion);
         this.gasto.actualizarValor(valor);
         this.gasto.actualizarFecha(fecha);
-        this.gasto.anyadirEtiquetas(etiquetas);
+        this.gasto.anyadirEtiquetas(...etiquetas);
         repintar();
-        
     }
 }
 
