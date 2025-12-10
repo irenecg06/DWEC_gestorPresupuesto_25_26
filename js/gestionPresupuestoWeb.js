@@ -210,6 +210,14 @@ btnAnyadirGastoFormulario.addEventListener("click", nuevoGastoWebFormulario);
 function EditarHandleFormulario(){
     this.handleEvent = function(event){
         event.target.disabled = true;
+        let plantillaFormulario = document.getElementById("formulario-template").content.cloneNode(true);
+        let form = plantillaFormulario.querySelector("form");
+        form.elements["descripcion"].value = this.gasto.descripcion;
+        form.elements["valor"].value = this.gasto.valor;
+        form.elements["fecha"].value = this.gasto.fecha;
+        form.elements["etiquetas"].value = this.gasto.etiquetas;
+        
+
     }
 };
 
