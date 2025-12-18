@@ -246,6 +246,10 @@ function SubmitFormulario(){
     }
 }
 
+function filtrarGastosWeb(){
+    
+}
+
 export   {
     mostrarDatoEnId,
     mostrarGastoWeb,
