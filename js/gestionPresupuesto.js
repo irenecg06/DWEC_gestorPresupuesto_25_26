@@ -165,7 +165,7 @@ function agruparGastos(periodo = "mes", etiquetas = [], fechaDesde, fechaHasta =
     return gastosReduce;
 }
 
-function transformarListadoEtiquetas(listado){
+function transformarListadoEtiquetas(etiquetas){
     return etiquetas.split(/[\s,.:;]+/);
 }
 
