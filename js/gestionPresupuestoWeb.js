@@ -247,24 +247,40 @@ function SubmitFormulario(){
 }
 
 function filtrarGastosWeb(){
+    event.preventDefault();
     let form = document.getElementById("formulario-filtrado");
-
-    form.addEventListener("submit", function(event){
-        event.preventDefault()
         
-        let objeto = {
-            descripcion: form.elements["formulario-filtrado-descripcion"].value.trim(),
-            valorMinimo: form.elements["formulario-filtrado-valor-minimo"].value.trim(),
-            valorMaximo: form.elements["formulario-filtrado-valor-maximo"].value.trim(),
-            fechaInicial: form.elements["formulario-filtrado-fecha-desde"].value.trim(),
-            fechaFinal: form.elements["formulario-filtrado-fecha-hasta"].value.trim(),
-            etiquetas: form.elements["formulario-filtrado-etiquetas-tiene"].value.trim()
-        }
+    let descripcionContiene = form.elements["formulario-filtrado-descripcion"].value.trim();
+    let valorMinimo = form.elements["formulario-filtrado-valor-minimo"].value.trim();
+    let valorMaximo = form.elements["formulario-filtrado-valor-maximo"].value.trim();
+    let fechaDesde = form.elements["formulario-filtrado-fecha-desde"].value.trim();
+    let fechaHasta = form.elements["formulario-filtrado-fecha-hasta"].value.trim();
+    let etiquetasTiene = form.elements["formulario-filtrado-etiquetas-tiene"].value.trim();
+    
 
-        let gastosFiltrados = GP.filtrarGastos(objeto);
-        gastosFiltrados.forEach(gasto => {mostrarGastoWeb("listado-gastos-completo", gasto)})
-    });
+    let objeto = {};
+
+    if (descripcionContiene !== "")
+        objeto.descripcionContiene = descripcionContiene;
+    if (valorMinimo !== "")
+        objeto.valorMinimo = Number(valorMinimo);
+    if (valorMaximo !== "")
+        objeto.valorMaximo = Number(valorMaximo);
+    if (fechaDesde !== "")
+        objeto.fechaDesde = fechaDesde;
+    if (fechaHasta !== "")
+        objeto.fechaHasta = fechaHasta;
+    if (etiquetasTiene !== "")
+        objeto.etiquetasTiene = GP.transformarListadoEtiquetas(etiquetasTiene);
+
+    let gastosFiltrados = GP.filtrarGastos(objeto);
+
+    document.getElementById("listado-gastos-completo").innerHTML = "";
+
+    gastosFiltrados.forEach(gasto => {mostrarGastoWeb("listado-gastos-completo", gasto)});
 }
+
+document.getElementById("formulario-filtrado").addEventListener("submit", filtrarGastosWeb);
 
 export   {
     mostrarDatoEnId,
