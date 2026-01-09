@@ -282,6 +282,23 @@ function filtrarGastosWeb(){
 
 document.getElementById("formulario-filtrado").addEventListener("submit", filtrarGastosWeb);
 
+function guardarGastosWeb(){
+    localStorage.setItem("GestorGastosDWEC", JSON.stringify(GP.listarGastos()));
+}
+
+function cargarGastosWeb(){
+    let datosAnteriores = JSON.parse(localStorage.getItem("GestorGastosDWEC"));
+    if (!datosAnteriores || datosAnteriores.length === 0){
+        datosAnteriores = [];
+    }
+    GP.cargarGastos(datosAnteriores);
+    repintar();
+}
+
+document.getElementById("guardar-gastos").addEventListener("click", guardarGastosWeb);
+
+document.getElementById("cargar-gastos").addEventListener("click", cargarGastosWeb);
+
 export   {
     mostrarDatoEnId,
     mostrarGastoWeb,
