@@ -233,30 +233,22 @@ function nuevoGastoWebFormulario(){
 
     let btnEnviarAPI = form.querySelector("button.gasto-enviar-api");
 
-    let enviarAPI = new EnviarGastoAPI();
-    enviarAPI.formulario = form;
-    enviarAPI.boton = document.getElementById("gasto-enviar-api");
-
-    btnEnviarAPI.addEventListener("click", enviarAPI);
+    btnEnviarAPI.addEventListener("click", function(event){
+        event.preventDefault();
+        let gasto = {
+            descripcion: form.elements["descripcion"].value.trim(), 
+            valor: Number(form.elements["valor"].value.trim()), 
+            fecha: form.elements["fecha"].value.trim(), 
+            etiquetas: form.elements["etiquetas"].value.trim()
+        };
+        enviarPOSTAPI(gasto);
+    });
 
 
     document.getElementById("anyadirgasto-formulario").disabled = true;
 
     document.getElementById("controlesprincipales").append(plantillaFormulario);
 };
-
-function EnviarGastoAPI(){
-    this.handleEvent = function(event){
-        event.preventDefault();
-        let gasto = [
-            descripcion = this.formulario.elements["descripcion"].value.trim(), 
-            valor = Number(this.formulario.elements["valor"].value.trim()), 
-            fecha = this.formulario.elements["fecha"].value.trim(), 
-            etiquetas = this.formulario.elements["etiquetas"].value.trim()
-        ];
-        enviarPOSTAPI(gasto);
-    }
-}
 
 function CancelarFormularioHandle(){
     this.handleEvent = function(event){
@@ -356,7 +348,28 @@ function cargarGastosWeb(){
 }
 
 async function enviarPOSTAPI(gasto){
+    let usuario = document.getElementById("nombre-usuario").value;
 
+    const url = link + "/" + usuario;
+
+    const options = {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(gasto) 
+    };
+
+    try {
+        const response = await fetch(url, options);
+
+        if (!response.ok) throw new Error("Error al crear");
+
+        const nuevoGasto = await response.json();
+        console.log("Creado:", nuevoGasto);
+    }   catch (error) {
+        console.log(error);
+    }
 }
 
 async function cargarGastosApi(){    
