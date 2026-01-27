@@ -169,7 +169,7 @@ function BorrarHandle(){
 function BorrarHandleAPI(){
     this.handleEvent = async function(event){
         const usuario = document.getElementById("nombre-usuario").value;
-        const id = this.gasto.id;
+        const id = this.gasto.gastoId;
         const url = link + "/" + usuario + "/" + id;
         const options = {
             method: "DELETE"
