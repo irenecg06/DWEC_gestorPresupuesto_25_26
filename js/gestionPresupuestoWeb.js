@@ -1,4 +1,5 @@
 import * as GP from './gestionPresupuesto.js';
+const link = "https://gestion-presupuesto-api.onrender.com/api";
 
 function mostrarDatoEnId(idElemento, valor){
     let elemento = document.getElementById(idElemento);
@@ -57,6 +58,14 @@ function mostrarGastoWeb(idElemento, gasto){
     btnBorrar.textContent = "Borrar";
     btnBorrar.addEventListener("click", manejadorBorrar);
     divGasto.appendChild(btnBorrar);
+
+    let btnBorrarAPI = document.createElement("button");
+    btnBorrarAPI.classList.add("gasto-borrar-api");
+    let manejadorBorrarAPI = new BorrarHandleAPI();
+    manejadorBorrarAPI.gasto = gasto;
+    btnBorrarAPI.textContent = "Borrar (API)";
+    btnBorrarAPI.addEventListener("click", manejadorBorrarAPI);
+    divGasto.appendChild(btnBorrarAPI);
 
     let btnEditarFormulario = document.createElement("button");
     btnEditarFormulario.classList.add("gasto-editar-formulario");
@@ -157,6 +166,35 @@ function BorrarHandle(){
     };
 };
 
+function BorrarHandleAPI(){
+    this.handleEvent = async function(event){
+        const usuario = document.getElementById("nombre-usuario").value;
+        const id = this.gasto.id;
+        const url = link + "/" + usuario + "/" + id;
+        const options = {
+            method: "DELETE"
+        };
+
+        try {
+            const response = await fetch(url, options);
+
+            if (!response.ok) throw new Error("Error al eliminar");
+
+            if (response.status === 204) {
+                console.log("Eliminado correctamente");
+                return;
+            }
+
+            const resultado = await response.json();
+            console.log("Eliminado:", resultado);
+            cargarGastosApi();
+        } catch (error) {
+            console.error(error);
+        }  
+    };
+};
+
+
 function BorrarEtiquetasHandle(){
     this.handleEvent = function(event){
         this.gasto.borrarEtiquetas(this.etiqueta);
@@ -193,10 +231,25 @@ function nuevoGastoWebFormulario(){
 
     btnCancelar.addEventListener("click", cancelar);
 
+    let btnEnviarAPI = form.querySelector("button.gasto-enviar-api");
+
+    let enviarAPI = new EnviarGastoAPI();
+    enviarAPI.formulario = form;
+    enviarAPI.boton = document.getElementById("gasto-enviar-api");
+
+    btnCancelar.addEventListener("click", cancelar);
+
+
     document.getElementById("anyadirgasto-formulario").disabled = true;
 
     document.getElementById("controlesprincipales").append(plantillaFormulario);
 };
+
+function EnviarGastoAPI(){
+    this.handleEvent = function(event){
+        event.preventDefault();
+    }
+}
 
 function CancelarFormularioHandle(){
     this.handleEvent = function(event){
@@ -295,10 +348,10 @@ function cargarGastosWeb(){
     repintar();
 }
 
-async function cargarGastosApi(){
-    let usuario = document.getElementById("nombre_usuario").value;
-    const url = `https://gestion-presupuesto-api.onrender.com/api/${usuario}`;
-    
+async function cargarGastosApi(){    
+    let usuario = document.getElementById("nombre-usuario").value;
+    const url = link + "/" + usuario;
+
     const options = {
         method: "GET",
         headers: {
@@ -332,5 +385,6 @@ export   {
     mostrarGastosAgrupadosWeb,
     repintar,
     actualizarPresupuestoWeb, 
-    nuevoGastoWebFormulario
+    nuevoGastoWebFormulario,
+    cargarGastosApi
 }
