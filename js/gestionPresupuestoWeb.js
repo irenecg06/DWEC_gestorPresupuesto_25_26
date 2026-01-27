@@ -239,7 +239,7 @@ function nuevoGastoWebFormulario(){
             descripcion: form.elements["descripcion"].value.trim(), 
             valor: Number(form.elements["valor"].value.trim()), 
             fecha: form.elements["fecha"].value.trim(), 
-            etiquetas: form.elements["etiquetas"].value.trim()
+            etiquetas: form.elements["etiquetas"].value.trim().split(",")
         };
         enviarPOSTAPI(gasto);
     });
@@ -277,9 +277,50 @@ function EditarHandleFormulario(){
         manejadorCancelar.formulario = form;
         manejadorCancelar.boton = event.currentTarget;
         botonCancelar.addEventListener("click", manejadorCancelar);
+        let botonEnviarAPI = form.querySelector("button.gasto-enviar-api");
+        let manejadorAPI = new EditarAPI();
+        manejadorAPI.gasto = this.gasto;
+        manejadorAPI.formulario = form;
+        botonEnviarAPI.addEventListener("click", manejadorAPI);
         event.target.insertAdjacentElement("afterend", form);
     }
 };
+
+function EditarAPI(){
+    this.handleEvent = async function(event){
+
+        const usuario = document.getElementById("nombre-usuario").value;
+        const id = this.gasto.gastoId;
+        const formulario = this.formulario;
+        const gastoActualizado = {
+            descripcion: formulario.elements["descripcion"].value.trim(),
+            valor: Number(formulario.elements["valor"].value.trim()),
+            fecha: formulario.elements["fecha"].value.trim(),
+            etiquetas: formulario.elements["etiquetas"].value.split(",")
+        }
+        
+        const url = link + "/" + usuario + "/" + id;
+        const options = {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(gastoActualizado)
+        };
+
+        try {
+            const response = await fetch(url, options);
+
+            if (!response.ok) throw new Error("Error al actualizar");
+
+            const resultado = await response.json();
+            console.log("Actualizado:", resultado);
+            cargarGastosApi();
+        } catch (error) {
+            console.error(error);
+        }
+    };
+}
 
 function SubmitFormulario(){
     this.handleEvent = function(event){
