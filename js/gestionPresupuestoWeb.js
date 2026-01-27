@@ -237,7 +237,7 @@ function nuevoGastoWebFormulario(){
     enviarAPI.formulario = form;
     enviarAPI.boton = document.getElementById("gasto-enviar-api");
 
-    btnCancelar.addEventListener("click", cancelar);
+    btnEnviarAPI.addEventListener("click", enviarAPI);
 
 
     document.getElementById("anyadirgasto-formulario").disabled = true;
@@ -248,6 +248,13 @@ function nuevoGastoWebFormulario(){
 function EnviarGastoAPI(){
     this.handleEvent = function(event){
         event.preventDefault();
+        let gasto = [
+            descripcion = this.formulario.elements["descripcion"].value.trim(), 
+            valor = Number(this.formulario.elements["valor"].value.trim()), 
+            fecha = this.formulario.elements["fecha"].value.trim(), 
+            etiquetas = this.formulario.elements["etiquetas"].value.trim()
+        ];
+        enviarPOSTAPI(gasto);
     }
 }
 
@@ -346,6 +353,10 @@ function cargarGastosWeb(){
     }
     GP.cargarGastos(datosAnteriores);
     repintar();
+}
+
+async function enviarPOSTAPI(gasto){
+
 }
 
 async function cargarGastosApi(){    
